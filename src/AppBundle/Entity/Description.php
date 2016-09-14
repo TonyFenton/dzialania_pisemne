@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Description
  *
  * @ORM\Table(name="description")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\FooterDescription")
  */
 class Description
 {
