@@ -19,7 +19,7 @@ class Builder implements ContainerAwareInterface
         
         $em = $this->container->get('doctrine')->getManager();
 		
-        $pages = $em->getRepository('AppBundle:page')->findAll();
+        $pages = $em->getRepository('AppBundle:page')->findBy(array(), array('sequence' => 'ASC'));;
 		
 		foreach ($pages as $page) {
 			
