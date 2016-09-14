@@ -188,6 +188,28 @@ class Page
         return $this->content;
     }
 
+    /**
+     * Set footer
+     *
+     * @param \AppBundle\Entity\Footer $footer
+     * @return Page
+     */
+    public function setFooter(\AppBundle\Entity\Footer $footer = null)
+    {
+        $this->footer = $footer;
+
+        return $this;
+    }
+
+    /**
+     * Get footer
+     *
+     * @return \AppBundle\Entity\Footer 
+     */
+    public function getFooter()
+    {
+        return $this->footer;
+    }
 
     /**
      * Set description
