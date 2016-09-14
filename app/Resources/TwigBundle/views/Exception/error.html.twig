@@ -1,0 +1,10 @@
+{% extends "TwigBundle::Exception/layout.html.twig" %}
+
+{% block title %}
+	Błąd {{ status_code }}
+{% endblock %}
+
+{% block content %}
+	<h1>Zapraszamy później</h1>
+	<p>Błąd {{ status_code }}</p>
+{% endblock %}

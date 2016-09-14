@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="{{ path('homepage') }}">Działania pisemne</a>
+			</div>
+		</div>
+	</nav>
+	<div class="container jumbotron">
+		<div class="row">
+			<div class="col-xs-12 box">
+				{% block content %}{% endblock %}	
+			</div>
+		</div>
+	</div>
+{% endblock %}
