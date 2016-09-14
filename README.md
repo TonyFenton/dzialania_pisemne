@@ -1,4 +1,7 @@
-dzialania_pisemne
-=================
-
-A Symfony project created on September 14, 2016, 6:55 am.
+<h1>Działania pisemne</h1>
+<ul>
+	<li>JavaScript, Jquery</li>
+	<li>Symfony 2</li>
+	<li>HTML, CSS, Bootstrap</li>
+	<li>...</li>
+</ul>
