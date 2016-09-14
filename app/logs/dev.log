@@ -1003,3 +1003,4 @@
 [2016-09-14 13:36:13] security.INFO: Populated the TokenStorage with an anonymous Token. [] []
 [2016-09-14 13:36:13] doctrine.DEBUG: SELECT t0.id AS id1, t0.slug AS slug2, t0.name AS name3, t0.title AS title4, t0.sequence AS sequence5, t0.content AS content6, t0.footer_id AS footer_id7, t8.id AS id9, t8.description AS description10, t8.page_id AS page_id11 FROM page t0 LEFT JOIN description t8 ON t8.page_id = t0.id WHERE t0.slug = ? LIMIT 1 [""] []
 [2016-09-14 13:36:14] request.INFO: Matched route "_wdt". {"route_parameters":{"_controller":"web_profiler.controller.profiler:toolbarAction","token":"7bb9bb","_route":"_wdt"},"request_uri":"http://127.0.0.1:8888/dzialania_pisemne/web/app_dev.php/_wdt/7bb9bb"} []
+[2016-09-14 13:52:43] php.DEBUG: symlink(): Could not fetch file information(error 3) {"type":2,"file":"C:\\xampp\\htdocs\\dzialania_pisemne\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Filesystem\\Filesystem.php","line":334,"level":28928} []
