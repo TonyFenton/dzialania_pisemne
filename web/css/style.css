@@ -12,16 +12,16 @@ body {
 	color: #333;
 }
 
-.navbar-default .navbar-nav > .active > a, 
-.navbar-default .navbar-nav > .active > a:focus, 
-.navbar-default .navbar-nav > .active > a:hover {
+.navbar-default .navbar-nav > .current > a, 
+.navbar-default .navbar-nav > .current > a:focus, 
+.navbar-default .navbar-nav > .current > a:hover {
 	color: #333;
 	background-color: inherit;
 	text-decoration: underline;
 }
 .navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > .active > a:hover,
-.navbar-default .navbar-nav > .active > a:focus {
+.navbar-default .navbar-nav > .current > a:hover,
+.navbar-default .navbar-nav > .current > a:focus {
 	color: #777;
 }
 
