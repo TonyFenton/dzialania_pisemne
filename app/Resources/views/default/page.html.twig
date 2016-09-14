@@ -1,5 +1,12 @@
 {% extends 'default/layout.html.twig' %}
 
 {% block content %}
-	{{ page.name }}
+	<div class="container jumbotron">
+		<div class="row">
+			<div class="col-xs-12" id="box">
+				<h1>{{ page.name }}</h1>
+				<p>{{ page.content }}</p>
+			</div>
+		</div>
+	</div>
 {% endblock %}
