@@ -122,10 +122,10 @@ function Addition(firstInputValue, secondInputValue)
 					}
 					if(i == tableWidth-3) {
 						setTimeout(function() {
-							tableRows.eq(3).css({"color": "green"});	
+							tableRows.eq(3).addClass("success");
 						}, 750);
 						setTimeout(function() {
-							tableRows.eq(3).css({"color": "black"});	
+							tableRows.eq(3).removeClass("success");
 						}, 1250);						
 					}
 				}, i * 750);
