@@ -28,8 +28,8 @@ var firstInput = inputs.eq(0);
 
 var secondInput = inputs.eq(1);
 
-var countButton = $('#calculator button');
+var addButton = $('#calculator #add');
 
 var result = $('#result');
 
-countButton.on("click", additionAction);
+addButton.on("click", additionAction);
