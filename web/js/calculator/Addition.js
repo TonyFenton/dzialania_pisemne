@@ -1,4 +1,4 @@
-function Addition(firstInputValue, secondInputValue) 
+function Addition(firstInputValue, secondInputValue, tableWidth) 
 {
 	this.firstNumber = firstInputValue;
 	
@@ -10,21 +10,22 @@ function Addition(firstInputValue, secondInputValue)
 	
 	this.tableRows;
 	
-	this.tableWidth = function() 
+	this.tableWidth;
+	
+	this.maxNumberLength = function() 
 	{
-		var maxNumberLength = Math.max(this.firstNumberLength, this.secondNumberLength);
-		return (maxNumberLength + 2);
+		return Math.max(this.firstNumberLength, this.secondNumberLength);
 	}
 	
-	this.createTable = function()
+	this.createTable = function(width, height)
 	{
 		table = document.createElement("table");
 		
-		for(i=0; i<4; i++) {
+		for(i=0; i<height; i++) {
 			
 			var tr = document.createElement("tr");
 			
-			for(j=0; j<this.tableWidth() ; j++) {
+			for(j=0; j<width ; j++) {
 				
 				var td = document.createElement("td");
 				
@@ -34,14 +35,15 @@ function Addition(firstInputValue, secondInputValue)
 		}
 		result.html(table);
 		this.tableRows = $('table tr');
+		this.tableWidth = width;
 		return this;
 	}
 	
 	this.setNumbers = function() 
 	{
 		
-		var startFirstNumber = this.tableWidth() - this.firstNumberLength;
-		var startSecondNumber = this.tableWidth() - this.secondNumberLength;
+		var startFirstNumber = this.tableWidth - this.firstNumberLength;
+		var startSecondNumber = this.tableWidth - this.secondNumberLength;
 		
 		var firstNumber = this.firstNumber;
 		var secondNumber = this.secondNumber;
@@ -85,10 +87,10 @@ function Addition(firstInputValue, secondInputValue)
 	
 	this.calculation = function() 
 	{
-		var tableWidth = this.tableWidth();
+		var tableWidth = this.tableWidth;
 		var tableRows = this.tableRows;
 	
-		for(i=0; i<(this.tableWidth()-2) ; i++) {
+		for(i=0; i<(this.maxNumberLength()) ; i++) {
 			(function(i) {
 				setTimeout(function() {
 					var tdIndex = tableWidth -1 - i;

@@ -15,7 +15,9 @@ function additionAction() {
 
 	if (isValid === true) {
 		var addition = new Addition(firstInputValue, secondInputValue);
-		addition.createTable().setNumbers();
+		addition
+			.createTable(addition.maxNumberLength()+2, 4)
+			.setNumbers();
 		setTimeout($.proxy(addition.setLine, addition), 750);
 		setTimeout($.proxy(addition.setPlus, addition), 750);
 		setTimeout($.proxy(addition.calculation, addition), 1250);
