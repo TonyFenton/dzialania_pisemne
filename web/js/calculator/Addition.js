@@ -17,15 +17,15 @@ function Addition(firstInputValue, secondInputValue, tableWidth)
 		return Math.max(this.firstNumberLength, this.secondNumberLength);
 	}
 	
-	this.createTable = function(width, height)
+	this.createTable = function(row, col)
 	{
 		table = document.createElement("table");
 		
-		for(i=0; i<height; i++) {
+		for(i=0; i<row; i++) {
 			
 			var tr = document.createElement("tr");
 			
-			for(j=0; j<width ; j++) {
+			for(j=0; j<col ; j++) {
 				
 				var td = document.createElement("td");
 				
@@ -35,39 +35,23 @@ function Addition(firstInputValue, secondInputValue, tableWidth)
 		}
 		result.html(table);
 		this.tableRows = $('table tr');
-		this.tableWidth = width;
+		this.tableWidth = col;
 		return this;
 	}
 	
-	this.setNumbers = function() 
+	this.setNumber = function(number, x, y)
 	{
-		
-		var startFirstNumber = this.tableWidth - this.firstNumberLength;
-		var startSecondNumber = this.tableWidth - this.secondNumberLength;
-		
-		var firstNumber = this.firstNumber;
-		var secondNumber = this.secondNumber;
-		
 		var i = 0;
-		this.tableRows.eq(1).children('td').each(function(index) {
+		this.tableRows.eq(x).children('td').each(function(index) {
 			
-			if (index >= startFirstNumber) {
-				$( this ).text(firstNumber.charAt(i));
+			if (index >= y) {
+				$( this ).text(number.charAt(i));
 				$( this ).hide();
 				$( this ).fadeIn("fast");
 				i++;
 			}
 		});
 		
-		var i = 0;
-		this.tableRows.eq(2).children('td').each(function(index) {
-			if (index >= startSecondNumber) {
-				$( this ).text(secondNumber.charAt(i));
-				$( this ).hide();
-				$( this ).fadeIn("fast");
-				i++;
-			}
-		});
 		return this;
 	}
 	
