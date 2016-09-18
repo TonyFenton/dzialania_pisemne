@@ -63,10 +63,14 @@ function Addition(firstInputValue, secondInputValue, tableWidth)
 		tr3.fadeIn("fast");
 	}
 	
-	this.setPlus = function() 
+	this.setSign = function(sign, tr, td, timeout) 
 	{
-		var plusTd = this.tableRows.eq(2).children('td').eq(0);
-		plusTd.text('+').hide().fadeIn("fast");
+		setTimeout($.proxy(function(){
+			this.tableRows.eq(tr).children('td').eq(td).html(sign).hide().fadeIn("fast");
+			
+		}, this), timeout);
+		
+		return this;
 	}
 	
 	this.calculation = function() 
