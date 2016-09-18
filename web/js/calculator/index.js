@@ -15,15 +15,16 @@ function additionAction() {
 
 	if (isValid === true) {
 		
-		var timeout = 700;
+		var timeout = 750;
 		
 		var addition = new Addition(firstInputValue, secondInputValue);
 		addition
 			.createTable(4, addition.maxNumberLength()+2)
 			.setNumber(addition.firstNumber, 1, addition.tableWidth - addition.firstNumberLength)
 			.setNumber(addition.secondNumber, 2, addition.tableWidth - addition.secondNumberLength)
-			.setSign("+", 2, 0, timeout);
-		setTimeout($.proxy(addition.setLine, addition), 750);
+			.setSign("+", 2, 0, timeout)
+			.setLine(2, 0, addition.tableWidth, timeout);
+			
 		setTimeout($.proxy(addition.calculation, addition), 1250);
 	}
 }

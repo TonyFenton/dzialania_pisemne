@@ -55,12 +55,20 @@ function Addition(firstInputValue, secondInputValue, tableWidth)
 		return this;
 	}
 	
-	this.setLine = function() 
+	this.setLine = function(x, y, length, timeout) 
 	{
-		var tr3 = this.tableRows.eq(3);
-		tr3.addClass("border_top");
-		tr3.hide();
-		tr3.fadeIn("fast");
+		setTimeout($.proxy(function(){
+			var i = 0;
+			this.tableRows.eq(x).children('td').each(function(index) {
+				
+				if (index >= y && index < (y + length)) {
+					$( this ).addClass("border_bottom");
+					i++;
+				}
+			});
+		}, this), timeout);	
+			
+		return this;
 	}
 	
 	this.setSign = function(sign, tr, td, timeout) 
@@ -100,12 +108,12 @@ function Addition(firstInputValue, secondInputValue, tableWidth)
 						resUnits = res.charAt(1);
 						resTens = res.charAt(0);
 						
-						td[3].text(resUnits).hide().fadeIn("fast");;
+						td[3].text(resUnits).hide().fadeIn("fast");
 						
 						if(tdIndex == 2) {
-							tableRows.eq(3).children('td').eq(tdIndex-1).text(resTens).hide().fadeIn("fast");;
+							tableRows.eq(3).children('td').eq(tdIndex-1).text(resTens).hide().fadeIn("fast");
 						} else {
-							tableRows.eq(0).children('td').eq(tdIndex-1).text(resTens).hide().fadeIn("fast");;
+							tableRows.eq(0).children('td').eq(tdIndex-1).text(resTens).hide().fadeIn("fast");
 						}
 					} else {
 						td[3].text(res).hide().fadeIn("fast");

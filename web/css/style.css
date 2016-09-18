@@ -52,8 +52,8 @@ table tr:first-child{
 	font-size: 13px;
 }
 
-.border_top {
-	border-top: 1px solid #333;
+.border_bottom {
+	border-bottom: 1px solid #333;
 }
 
 .jumbotron {
