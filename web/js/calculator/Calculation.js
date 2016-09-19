@@ -1,4 +1,4 @@
-function Addition(firstInputValue, secondInputValue, tableWidth) 
+function Calculation(firstInputValue, secondInputValue, tableWidth) 
 {
 	this.firstNumber = firstInputValue;
 	
@@ -81,46 +81,50 @@ function Addition(firstInputValue, secondInputValue, tableWidth)
 		return this;
 	}
 	
-	this.calculation = function() 
+	this.addition = function(x, y, length, draft, timeout, interval) 
 	{
-		var tableWidth = this.tableWidth;
 		var tableRows = this.tableRows;
-	
-		for(i=0; i<(this.maxNumberLength()); i++) {
+		var resTens = 0;
+		
+		for(i=0; i<length; i++) {
 			(function(i) {
 				setTimeout(function() {
-					var tdIndex = tableWidth -1 - i;
+					var tdIndex = y - i;
 					var td = new Array();
-					for(j=0; j<4; j++) {
-						td[j] = tableRows.eq(j).children('td').eq(tdIndex);
-						
-						if(j != 3) {
-							td[j] = td[j].text();
-							if(td[j] == '') {
-								td[j] = 0;
-							}
-							td[j] = parseInt(td[j]);
+					for(j=0; j<3; j++) {
+						td[j] = tableRows.eq(j+x).children('td').eq(tdIndex).text();
+						if(td[j] == '') {
+							td[j] = 0;
 						}
+						td[j] = parseInt(td[j]);
 					}
-					var res = td[0] + td[1] + td[2];
+					
+					var res = td[0] + td[1] + parseInt(resTens);
 					if(res >= 10) {
 						res = res.toString();
 						resUnits = res.charAt(1);
 						resTens = res.charAt(0);
-						
-						td[3].text(resUnits).hide().fadeIn("fast");
-						
-						if(tdIndex == 2) {
-							tableRows.eq(3).children('td').eq(tdIndex-1).text(resTens).hide().fadeIn("fast");
-						} else {
-							tableRows.eq(0).children('td').eq(tdIndex-1).text(resTens).hide().fadeIn("fast");
+		
+						tableRows.eq(x+2).children('td').eq(tdIndex).text(resUnits).hide().fadeIn("fast");
+
+						if (draft) {
+							if(tdIndex == y + 1 - length) {
+								tableRows.eq(x+2).children('td').eq(tdIndex-1).text(resTens).hide().fadeIn("fast");
+							} else {
+								tableRows.eq(x-1).children('td').eq(tdIndex-1).text(resTens).hide().fadeIn("fast");
+							}
 						}
+
 					} else {
-						td[3].text(res).hide().fadeIn("fast");
+						tableRows.eq(x+2).children('td').eq(tdIndex).text(res).hide().fadeIn("fast");
+						resTens = 0;
 					}
-				}, i * 750);
+		
+				}, i * interval + timeout);
 			})(i);
 		}
+		
+		return this;
 	}
 	this.showSuccess = function(tr, timeout, interval) 
 	{

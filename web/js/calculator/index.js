@@ -2,7 +2,7 @@
 	return input.val().trim();
 }
 
-function additionAction() {
+function calculationAction() {
 	var firstInputValue = inputValue(firstInput);
 	var secondInputValue = inputValue(secondInput);
 	
@@ -17,16 +17,15 @@ function additionAction() {
 		
 		var interval = 750;
 		
-		var addition = new Addition(firstInputValue, secondInputValue);
-		addition
-			.createTable(4, addition.maxNumberLength()+2)
-			.setNumber(addition.firstNumber, 1, addition.tableWidth - addition.firstNumberLength)
-			.setNumber(addition.secondNumber, 2, addition.tableWidth - addition.secondNumberLength)
+		var calculation = new Calculation(firstInputValue, secondInputValue);
+		calculation
+			.createTable(4, calculation.maxNumberLength()+2)
+			.setNumber(calculation.firstNumber, 1, calculation.tableWidth - calculation.firstNumberLength)
+			.setNumber(calculation.secondNumber, 2, calculation.tableWidth - calculation.secondNumberLength)
 			.setSign("+", 2, 0, interval)
-			.setLine(2, 0, addition.tableWidth, interval)
-			.showSuccess(3, interval * addition.maxNumberLength() + interval*1.5, interval);
-			
-		setTimeout($.proxy(addition.calculation, addition), 1250);
+			.setLine(2, 0, calculation.tableWidth, interval)
+			.addition(1, calculation.tableWidth - 1, calculation.maxNumberLength(), true, interval*2, interval)
+			.showSuccess(3, interval * calculation.maxNumberLength() + interval*1.5, interval);
 	}
 }
 
@@ -40,4 +39,4 @@ var addButton = $('#calculator #add');
 
 var result = $('#result');
 
-addButton.on("click", additionAction);
+addButton.on("click", calculationAction);
