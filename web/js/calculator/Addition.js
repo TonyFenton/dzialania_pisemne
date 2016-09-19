@@ -86,7 +86,7 @@ function Addition(firstInputValue, secondInputValue, tableWidth)
 		var tableWidth = this.tableWidth;
 		var tableRows = this.tableRows;
 	
-		for(i=0; i<(this.maxNumberLength()) ; i++) {
+		for(i=0; i<(this.maxNumberLength()); i++) {
 			(function(i) {
 				setTimeout(function() {
 					var tdIndex = tableWidth -1 - i;
@@ -118,16 +118,17 @@ function Addition(firstInputValue, secondInputValue, tableWidth)
 					} else {
 						td[3].text(res).hide().fadeIn("fast");
 					}
-					if(i == tableWidth-3) {
-						setTimeout(function() {
-							tableRows.eq(3).addClass("success");
-						}, 750);
-						setTimeout(function() {
-							tableRows.eq(3).removeClass("success");
-						}, 1250);						
-					}
 				}, i * 750);
 			})(i);
 		}
+	}
+	this.showSuccess = function(tr, timeout, interval) 
+	{
+		setTimeout($.proxy(function(){
+			this.tableRows.eq(tr).addClass("success");
+		}, this), timeout);
+		setTimeout($.proxy(function(){
+			this.tableRows.eq(tr).removeClass("success");
+		}, this), timeout + interval);			
 	}
 }
