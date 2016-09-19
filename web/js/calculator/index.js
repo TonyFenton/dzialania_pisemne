@@ -2,7 +2,7 @@
 	return input.val().trim();
 }
 
-function calculationAction() {
+function addition() {
 	var firstInputValue = inputValue(firstInput);
 	var secondInputValue = inputValue(secondInput);
 	
@@ -39,4 +39,4 @@ var addButton = $('#calculator #add');
 
 var result = $('#result');
 
-addButton.on("click", calculationAction);
+addButton.on("click", addition);

@@ -1,4 +1,4 @@
-function Calculation(firstInputValue, secondInputValue, tableWidth) 
+function Calculation(firstInputValue, secondInputValue) 
 {
 	this.firstNumber = firstInputValue;
 	
