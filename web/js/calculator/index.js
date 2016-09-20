@@ -35,6 +35,7 @@ function subtraction() {
 	var isValid = validation
 		.validateInput(firstInputValue, "Pierwsze Pole")
 		.validateInput(secondInputValue, "Drugie Pole")
+		.validateGreaterOrEqual(firstInputValue, secondInputValue)
 		.isValid()
 	;
 	

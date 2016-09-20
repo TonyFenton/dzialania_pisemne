@@ -3,7 +3,7 @@
 	this.validateErrors = new Array();
 	
 	this.validateInput = function(input, field) 
-	{	
+	{
 		var patt = /^[0-9]+$/;
 		var isValid = patt.test(input);
 		
@@ -15,6 +15,20 @@
 			this.validateErrors.push(field + ' nie powinno mieć więcej niż 30 znaków');
 		}
 		
+		return this;
+	}
+	
+	this.validateGreaterOrEqual = function(input1, input2) 
+	{
+		if(this.validateErrors.length == 0) {
+			var input1Int = parseInt(input1);
+			var input2Int = parseInt(input2);
+			
+			if (input1Int < input2Int) {
+				this.validateErrors.push('Pierwsza liczba powinna być większa lub równa drugiej liczbie');
+			}
+		}
+
 		return this;
 	}
 	
