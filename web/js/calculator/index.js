@@ -15,8 +15,6 @@ function addition() {
 
 	if (isValid === true) {
 		
-		var interval = 750;
-		
 		var calculation = new Calculation(firstInputValue, secondInputValue);
 		calculation
 			.createTable(4, calculation.maxNumberLength()+2)
@@ -29,6 +27,24 @@ function addition() {
 	}
 }
 
+function subtraction() {
+	var firstInputValue = inputValue(firstInput);
+	var secondInputValue = inputValue(secondInput);
+	
+	var validation = new Validation();
+	var isValid = validation
+		.validateInput(firstInputValue, "Pierwsze Pole")
+		.validateInput(secondInputValue, "Drugie Pole")
+		.isValid()
+	;
+	
+	if (isValid === true) {
+		
+	}
+}
+
+var interval = 750;
+
 var inputs = $('#calculator input');
 
 var firstInput = inputs.eq(0);
@@ -36,7 +52,9 @@ var firstInput = inputs.eq(0);
 var secondInput = inputs.eq(1);
 
 var addButton = $('#calculator #add');
+var subtractButton = $('#calculator #subtract');
 
 var result = $('#result');
 
 addButton.on("click", addition);
+subtractButton.on("click", subtraction);
