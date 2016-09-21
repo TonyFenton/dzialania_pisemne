@@ -40,7 +40,15 @@ function subtraction() {
 	;
 	
 	if (isValid === true) {
+		var calculation = new Calculation(firstInputValue, secondInputValue);
+		calculation
+			.createTable(4, calculation.maxNumberLength()+2)
+			.setNumber(calculation.firstNumber, 1, calculation.tableWidth - calculation.firstNumberLength)
+			.setNumber(calculation.secondNumber, 2, calculation.tableWidth - calculation.secondNumberLength)
+			.setSign("-", 2, 0, interval)
+			.setLine(2, 0, calculation.tableWidth, interval)
 		
+			.showSuccess(3, interval * calculation.maxNumberLength() + interval*1.5, interval);
 	}
 }
 
