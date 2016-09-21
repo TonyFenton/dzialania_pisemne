@@ -126,6 +126,56 @@ function Calculation(firstInputValue, secondInputValue)
 		
 		return this;
 	}
+	
+	this.subtraction = function(x, y, length, draft, timeout, interval) 
+	{
+		var tableRows = this.tableRows;
+		var tens = 0;
+		
+		for(i=0; i<length; i++) {
+			(function(i) {
+				setTimeout(function() {
+					var tdIndex = y - i;
+					var td = new Array();
+					for(j=0; j<3; j++) {
+						td[j] = tableRows.eq(j+x).children('td').eq(tdIndex).text();
+						if(td[j] == '') {
+							td[j] = 0;
+						}
+						td[j] = parseInt(td[j]);
+					}
+					var res = td[0] - td[1] + parseInt(tens);
+					if(res < 0) {
+						res += 10;
+						res = res.toString();
+						tens = -1;
+
+						if (draft) {
+							var k = 0;
+							var tensDraft = tableRows.eq(x-1).children('td').eq(tdIndex-1).text();
+							
+							if (tensDraft == '') {
+									while (tableRows.eq(x).children('td').eq(tdIndex-1-k).text() == 0) {
+										tableRows.eq(x-1).children('td').eq(tdIndex-1-k).text(9).hide().fadeIn("fast");
+										k++
+									}
+								
+								tableRows.eq(x-1).children('td').eq(tdIndex-1-k).text(tens).hide().fadeIn("fast");
+							}
+						}
+
+					} else {
+						tens = 0;
+					}
+					tableRows.eq(x+2).children('td').eq(tdIndex).text(res).hide().fadeIn("fast");
+		
+				}, i * interval + timeout);
+			})(i);
+		}
+		
+		return this;
+	}
+	
 	this.showSuccess = function(tr, timeout, interval) 
 	{
 		setTimeout($.proxy(function(){
