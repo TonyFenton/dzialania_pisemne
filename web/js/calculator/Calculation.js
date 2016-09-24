@@ -17,13 +17,17 @@ function Calculation(firstInputValue, secondInputValue)
 		return Math.max(this.firstNumberLength, this.secondNumberLength);
 	}
 	
-	this.createTable = function(row, col)
+	this.createTable = function(row, col, draft)
 	{
 		table = document.createElement("table");
 		
 		for(i=0; i<row; i++) {
 			
 			var tr = document.createElement("tr");
+			
+			if (draft !== false && draft == i) {
+				tr.className = "draft";
+			}
 			
 			for(j=0; j<col ; j++) {
 				
@@ -33,6 +37,7 @@ function Calculation(firstInputValue, secondInputValue)
 			}
 			table.appendChild(tr);
 		}
+		result.css("margin-bottom", "0px")
 		result.html(table);
 		this.tableRows = $('table tr');
 		this.tableWidth = col;
@@ -66,6 +71,10 @@ function Calculation(firstInputValue, secondInputValue)
 					i++;
 				}
 			});
+			
+			var margin = parseInt(result.css("margin-bottom")) -1;
+			result.css("margin-bottom", margin+"px")
+			
 		}, this), timeout);	
 			
 		return this;

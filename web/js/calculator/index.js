@@ -17,7 +17,7 @@ function addition() {
 		
 		var calculation = new Calculation(firstInputValue, secondInputValue);
 		calculation
-			.createTable(4, calculation.maxNumberLength()+2)
+			.createTable(4, calculation.maxNumberLength()+2, 0)
 			.setNumber(calculation.firstNumber, 1, calculation.tableWidth - calculation.firstNumberLength)
 			.setNumber(calculation.secondNumber, 2, calculation.tableWidth - calculation.secondNumberLength)
 			.setSign("+", 2, 0, interval)
@@ -42,7 +42,7 @@ function subtraction() {
 	if (isValid === true) {
 		var calculation = new Calculation(firstInputValue, secondInputValue);
 		calculation
-			.createTable(4, calculation.maxNumberLength()+2)
+			.createTable(4, calculation.maxNumberLength()+2, 0)
 			.setNumber(calculation.firstNumber, 1, calculation.tableWidth - calculation.firstNumberLength)
 			.setNumber(calculation.secondNumber, 2, calculation.tableWidth - calculation.secondNumberLength)
 			.setSign("&#8722;", 2, 0, interval)

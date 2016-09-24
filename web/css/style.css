@@ -12,8 +12,7 @@ body {
 
 #logo {
 	padding: 10px;
-	padding-top:20px;
-	text-align: center;
+	padding-top: 20px;
 }
 
 #logo a {
@@ -49,7 +48,6 @@ body {
 
 #result {
 	padding: 10px;
-	min-height: 120px;
 }
 
 table {
@@ -60,12 +58,16 @@ table {
 
 table td{
 	width: 15px;
-	height: 20px;
+	height: 28px;
 	text-align: center;
+	box-sizing: content-box;
 }
 
-table tr:first-child{
+.draft {
 	font-size: 13px;
+}
+.draft td{
+	height: 20px;
 }
 
 .border_bottom {
@@ -103,24 +105,11 @@ table tr:first-child{
 }
 
 @media (min-width: 768px) {
-		.navbar-header,
-		.navbar-collapse {
-			float: none;
+		
+		#navbar {
+			margin-top: 60px;
 		}
-
-		.navbar > .container .navbar-brand {
-			width: 100%;
-			text-align:center;
-		}
-
-		.navbar-nav {
-			float: none;
-			text-align: center;
-		}
-		.navbar-nav li {
-			float: none;
-			display: inline-block;
-		}
+		
 		#calculator button {
 			width: 100%;
 			margin-bottom: 15px;
@@ -131,6 +120,7 @@ table tr:first-child{
 		
 		.jumbotron {
 			border-radius: 6px;
+			margin-bottom: 100px;
 		}
 		.box {
 			padding: 10px;
