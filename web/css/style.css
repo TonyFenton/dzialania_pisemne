@@ -4,6 +4,22 @@ body {
 	color: #333;
 	font-family: 'Lato', sans-serif;
 }
+
+#logo img {
+	width: 150px;
+	display: inline-block;
+}
+
+#logo {
+	padding: 10px;
+	padding-top:20px;
+	text-align: center;
+}
+
+#logo a {
+	float: none;
+	width: auto;
+}
 .navbar-default {
 	/* Background pattern from subtlepatterns.com */
 	background-image: url("../img/witewall_3.png");
