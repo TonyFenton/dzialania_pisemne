@@ -104,6 +104,18 @@ table td{
 	color: #4cae4c;
 }
 
+.errors {
+	color : #ff3333;
+	font-size: 16px;
+}
+.errors li {
+	padding-bottom: 5px;
+}
+
+#add {
+	margin-bottom: 14px;
+}
+
 @media (min-width: 768px) {
 		
 		#navbar {
@@ -112,17 +124,15 @@ table td{
 		
 		#calculator button {
 			width: 100%;
-			margin-bottom: 15px;
 		}
-		#calculator {
-			padding-bottom: 150px;
-		}
+
 		
 		.jumbotron {
 			border-radius: 6px;
 			margin-bottom: 100px;
+			padding-bottom: 50px;
 		}
-		.box {
+		.box, .errors {
 			padding: 10px;
 			padding-left: 60px;
 			padding-right: 60px;

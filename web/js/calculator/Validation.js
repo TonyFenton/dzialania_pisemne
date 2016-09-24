@@ -38,6 +38,7 @@
 			return true;
 		} else {
 			ul = document.createElement("ul");
+			ul.className = "errors";
 			this.validateErrors.forEach(function(entry) {
 				var listItem = document.createElement("li");
 				var message = document.createTextNode(entry);
