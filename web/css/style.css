@@ -112,8 +112,21 @@ table td{
 	padding-bottom: 5px;
 }
 
-#add {
+#calculator button {
 	margin-bottom: 14px;
+}
+
+.form_buttons:nth-child(1){
+	margin-right: 2%;
+}
+	
+.form_buttons:nth-child(2){
+	margin-left: 2%;
+}
+		
+.form_buttons {
+	float: left;
+	width: 48%;
 }
 
 @media (min-width: 768px) {
@@ -121,11 +134,6 @@ table td{
 		#navbar {
 			margin-top: 60px;
 		}
-		
-		#calculator button {
-			width: 100%;
-		}
-
 		
 		.jumbotron {
 			border-radius: 6px;

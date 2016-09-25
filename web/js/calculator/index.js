@@ -52,6 +52,10 @@ function subtraction() {
 	}
 }
 
+function multiplication() {
+	
+}
+
 var interval = 750;
 
 var inputs = $('#calculator input');
@@ -67,3 +71,4 @@ var result = $('#result');
 
 addButton.on("click", addition);
 subtractButton.on("click", subtraction);
+multiplyButton.on("click", multiplication);
