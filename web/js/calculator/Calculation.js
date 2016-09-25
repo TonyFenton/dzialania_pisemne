@@ -90,25 +90,26 @@ function Calculation(firstInputValue, secondInputValue)
 		return this;
 	}
 	
-	this.addition = function(x, y, length, draft, timeout, interval) 
+	this.addition = function(x, y, length, amount, draft, timeout, interval) 
 	{
-		var tableRows = this.tableRows;
 		var resTens = 0;
 		
 		for(i=0; i<length; i++) {
-			(function(i) {
-				setTimeout(function() {
+			(function(i, tableRows) {
+				setTimeout($.proxy(function(){
 					var tdIndex = y - i;
 					var td = new Array();
-					for(j=0; j<3; j++) {
+					var res = 0;
+					for(j=0; j<amount; j++) {
 						td[j] = tableRows.eq(j+x).children('td').eq(tdIndex).text();
 						if(td[j] == '') {
 							td[j] = 0;
 						}
 						td[j] = parseInt(td[j]);
+						res += td[j];
 					}
+					res += parseInt(resTens);
 					
-					var res = td[0] + td[1] + parseInt(resTens);
 					if(res >= 10) {
 						res = res.toString();
 						resUnits = res.charAt(1);
@@ -129,8 +130,8 @@ function Calculation(firstInputValue, secondInputValue)
 						resTens = 0;
 					}
 		
-				}, i * interval + timeout);
-			})(i);
+				}, this), i * interval + timeout);
+			})(i, this.tableRows);
 		}
 		
 		return this;
@@ -142,8 +143,8 @@ function Calculation(firstInputValue, secondInputValue)
 		var tens = 0;
 		
 		for(i=0; i<length; i++) {
-			(function(i) {
-				setTimeout(function() {
+			(function(i, tableRows) {
+				setTimeout($.proxy(function(){
 					var tdIndex = y - i;
 					var td = new Array();
 					for(j=0; j<3; j++) {
@@ -178,8 +179,8 @@ function Calculation(firstInputValue, secondInputValue)
 					}
 					tableRows.eq(x+2).children('td').eq(tdIndex).text(res).hide().fadeIn("fast");
 		
-				}, i * interval + timeout);
-			})(i);
+				}, this), i * interval + timeout);
+			})(i, this.tableRows);
 		}
 		
 		return this;

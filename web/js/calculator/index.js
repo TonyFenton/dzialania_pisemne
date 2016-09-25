@@ -22,7 +22,7 @@ function addition() {
 			.setNumber(calculation.secondNumber, 2, calculation.tableWidth - calculation.secondNumberLength)
 			.setSign("+", 2, 0, interval)
 			.setLine(2, 0, calculation.tableWidth, interval)
-			.addition(1, calculation.tableWidth - 1, calculation.maxNumberLength(), true, interval*2, interval)
+			.addition(1, calculation.tableWidth - 1, calculation.maxNumberLength(), 2, true, interval*2, interval)
 			.showSuccess(3, interval * calculation.maxNumberLength() + interval*1.5, interval);
 	}
 }
