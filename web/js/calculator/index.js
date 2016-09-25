@@ -53,7 +53,26 @@ function subtraction() {
 }
 
 function multiplication() {
+	var firstInputValue = inputValue(firstInput);
+	var secondInputValue = inputValue(secondInput);
 	
+	var validation = new Validation();
+	var isValid = validation
+		.validateInput(firstInputValue, "Pierwsze Pole")
+		.validateInput(secondInputValue, "Drugie Pole")
+		.isValid()
+	;
+
+	if (isValid === true) {
+		
+		var calculation = new Calculation(firstInputValue, secondInputValue);
+		calculation
+			.createTable(2+calculation.secondNumberLength+1, calculation.firstNumberLength + calculation.secondNumberLength -1 +2, false)
+			.setNumber(calculation.firstNumber, 0, calculation.tableWidth - calculation.firstNumberLength)
+			.setNumber(calculation.secondNumber, 1, calculation.tableWidth - calculation.secondNumberLength)
+			.setSign("&#215;", 1, calculation.tableWidth - calculation.maxNumberLength()-2, interval)
+			.setLine(1, calculation.tableWidth - calculation.maxNumberLength()-2, calculation.maxNumberLength()+2, interval);
+	}
 }
 
 var interval = 750;
@@ -64,11 +83,8 @@ var firstInput = inputs.eq(0);
 
 var secondInput = inputs.eq(1);
 
-var addButton = $('#calculator #add');
-var subtractButton = $('#calculator #subtract');
-
 var result = $('#result');
 
-addButton.on("click", addition);
-subtractButton.on("click", subtraction);
-multiplyButton.on("click", multiplication);
+$('#calculator #add').on("click", addition);
+$('#calculator #subtract').on("click", subtraction);
+$('#calculator #multiply').on("click", multiplication);
