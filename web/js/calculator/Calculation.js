@@ -14,6 +14,8 @@ function Calculation(firstInputValue, secondInputValue)
 	
 	this.tableHeight;
 	
+	this.timeout = 0;
+	
 	this.multiplicationTableWidth = function(margin = 0) 
 	{
 		var res = new Array();
@@ -76,6 +78,8 @@ function Calculation(firstInputValue, secondInputValue)
 	
 	this.setLine = function(x, y, length, timeout) 
 	{
+		this.timeout = timeout;
+		
 		setTimeout($.proxy(function(){
 			var i = 0;
 			this.tableRows.eq(x).children('td').each(function(index) {
@@ -89,27 +93,34 @@ function Calculation(firstInputValue, secondInputValue)
 			var margin = parseInt(result.css("margin-bottom")) -1;
 			result.css("margin-bottom", margin+"px")
 			
-		}, this), timeout);	
+		}, this), this.timeout);	
 			
 		return this;
 	}
 	
 	this.setSign = function(sign, tr, td, timeout) 
 	{
+		this.timeout = timeout;
+		
 		setTimeout($.proxy(function(){
 			this.tableRows.eq(tr).children('td').eq(td).html(sign).hide().fadeIn("fast");
 			
-		}, this), timeout);
+		}, this), this.timeout);
 		
 		return this;
 	}
 	
 	this.addition = function(x, y, length, amount, draft, timeout, interval) 
 	{
+		this.timeout = timeout;
+	
 		var resTens = 0;
 		
 		for(i=0; i<length; i++) {
-			(function(i, tableRows) {
+			
+			var timeout = this.timeout;
+			
+			(function(i, tableRows, timeout) {
 				setTimeout($.proxy(function(){
 					var tdIndex = y - i;
 					var td = new Array();
@@ -142,19 +153,26 @@ function Calculation(firstInputValue, secondInputValue)
 						resTens = 0;
 					}
 		
-				}, this), i * interval + timeout);
-			})(i, this.tableRows);
+				}, this), timeout);
+			})(i, this.tableRows, timeout);
+			this.timeout += interval;
 		}
+		this.timeout -= interval;
 		
 		return this;
 	}
 	
 	this.subtraction = function(x, y, length, draft, timeout, interval) 
 	{
+		this.timeout = timeout;
+		
 		var tens = 0;
 		
 		for(i=0; i<length; i++) {
-			(function(i, tableRows) {
+			
+			var timeout = this.timeout;
+			
+			(function(i, tableRows, timeout) {
 				setTimeout($.proxy(function(){
 					var tdIndex = y - i;
 					var td = new Array();
@@ -190,51 +208,58 @@ function Calculation(firstInputValue, secondInputValue)
 					}
 					tableRows.eq(x+2).children('td').eq(tdIndex).text(res).hide().fadeIn("fast");
 		
-				}, this), i * interval + timeout);
-			})(i, this.tableRows);
+				}, this), timeout);
+			})(i, this.tableRows, timeout);
+			this.timeout += interval;	
 		}
+		this.timeout -= interval;
 		
 		return this;
 	}
 	
 	this.multiplication = function(timeout, interval)
 	{
-		var counter = -1;
+		this.timeout = timeout;	
 		
 		for (i=0; i<this.secondNumberLength; i++) {
 			var res = parseInt(this.secondNumber.charAt(this.secondNumberLength-1-i)) * parseInt(this.firstNumber);
 			res = res.toString();
 			resLength = res.length;
 			for (j=0; j<resLength; j++) {
-				
-				counter++;
+
+				var timeout = this.timeout;
 				
 				var resUnit = res.charAt(resLength-1-j);
 				var td = this.tableRows.eq(2+i).children('td').eq(this.tableWidth-1-j-i);
 				
-				(function(td, resUnit, counter) {
+				(function(td, resUnit, timeout) {
 					setTimeout(function(){
 						td.text(resUnit).hide().fadeIn("fast");
-					}, counter * interval + timeout);
-				})(td, resUnit, counter);
+					}, timeout);
+				})(td, resUnit, timeout);
+				this.timeout += interval;
 			}
 		}
+		this.timeout -= interval;
 		
 		this
-			.setLine(this.tableHeight-2, 0, this.tableWidth, interval*counter+timeout+interval) 
-			.setSign("+", this.tableHeight-2, 0, interval*counter+timeout+interval)
-			.addition(2, this.tableWidth - 1, this.tableWidth-2, this.secondNumberLength, false, interval*counter+timeout+interval*2, interval);
+			.setLine(this.tableHeight-2, 0, this.tableWidth, this.timeout+interval) 
+			.setSign("+", this.tableHeight-2, 0, this.timeout)
+			.addition(2, this.tableWidth - 1, this.tableWidth-2, this.secondNumberLength, false, this.timeout+interval, interval);
 		
 		return this;
 	}
 	
 	this.showSuccess = function(tr, timeout, interval) 
 	{
+		this.timeout = timeout;
+		
 		setTimeout($.proxy(function(){
 			this.tableRows.eq(tr).addClass("success");
-		}, this), timeout);
+		}, this), this.timeout);
+		this.timeout += interval;
 		setTimeout($.proxy(function(){
 			this.tableRows.eq(tr).removeClass("success");
-		}, this), timeout + interval);			
+		}, this), this.timeout);			
 	}
 }
