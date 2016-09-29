@@ -67,11 +67,12 @@ function multiplication() {
 		
 		var calculation = new Calculation(firstInputValue, secondInputValue);
 		calculation
-			.createTable(2+calculation.secondNumberLength+1, calculation.firstNumberLength + calculation.secondNumberLength -1 +2, false)
+			.createTable(2+calculation.secondNumberLength+1, calculation.multiplicationTableWidth(2), false)
 			.setNumber(calculation.firstNumber, 0, calculation.tableWidth - calculation.firstNumberLength)
 			.setNumber(calculation.secondNumber, 1, calculation.tableWidth - calculation.secondNumberLength)
 			.setSign("&#215;", 1, calculation.tableWidth - calculation.maxNumberLength()-2, interval)
-			.setLine(1, calculation.tableWidth - calculation.maxNumberLength()-2, calculation.maxNumberLength()+2, interval);
+			.setLine(1, calculation.tableWidth - calculation.maxNumberLength()-2, calculation.maxNumberLength()+2, interval)
+			.multiplication(interval*2, interval);
 	}
 }
 

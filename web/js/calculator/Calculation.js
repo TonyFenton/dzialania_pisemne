@@ -12,6 +12,19 @@ function Calculation(firstInputValue, secondInputValue)
 	
 	this.tableWidth;
 	
+	this.tableHeight;
+	
+	this.multiplicationTableWidth = function(margin = 0) 
+	{
+		var res = new Array();
+		
+		for (i=0; i<this.secondNumberLength; i++) {
+			res[i] = parseInt(this.secondNumber.charAt(this.secondNumberLength-1-i)) * parseInt(this.firstNumber);
+			res[i] = res[i].toString().length + i + margin;
+		}
+		return Math.max.apply(Math, res);
+	}
+	
 	this.maxNumberLength = function() 
 	{
 		return Math.max(this.firstNumberLength, this.secondNumberLength);
@@ -41,6 +54,7 @@ function Calculation(firstInputValue, secondInputValue)
 		result.html(table);
 		this.tableRows = $('table tr');
 		this.tableWidth = col;
+		this.tableHeight = row;
 		return this;
 	}
 	
@@ -115,18 +129,16 @@ function Calculation(firstInputValue, secondInputValue)
 						resUnits = res.charAt(1);
 						resTens = res.charAt(0);
 		
-						tableRows.eq(x+2).children('td').eq(tdIndex).text(resUnits).hide().fadeIn("fast");
+						tableRows.eq(x+amount).children('td').eq(tdIndex).text(resUnits).hide().fadeIn("fast");
 
-						if (draft) {
-							if(tdIndex == y + 1 - length) {
-								tableRows.eq(x+2).children('td').eq(tdIndex-1).text(resTens).hide().fadeIn("fast");
-							} else {
-								tableRows.eq(x-1).children('td').eq(tdIndex-1).text(resTens).hide().fadeIn("fast");
-							}
+						if( tdIndex == y + 1 - length) {
+								tableRows.eq(x+amount).children('td').eq(tdIndex-1).text(resTens).hide().fadeIn("fast");
+						} else if (draft) {
+							tableRows.eq(x-1).children('td').eq(tdIndex-1).text(resTens).hide().fadeIn("fast");
 						}
 
 					} else {
-						tableRows.eq(x+2).children('td').eq(tdIndex).text(res).hide().fadeIn("fast");
+						tableRows.eq(x+amount).children('td').eq(tdIndex).text(res).hide().fadeIn("fast");
 						resTens = 0;
 					}
 		
@@ -139,7 +151,6 @@ function Calculation(firstInputValue, secondInputValue)
 	
 	this.subtraction = function(x, y, length, draft, timeout, interval) 
 	{
-		var tableRows = this.tableRows;
 		var tens = 0;
 		
 		for(i=0; i<length; i++) {
@@ -182,6 +193,37 @@ function Calculation(firstInputValue, secondInputValue)
 				}, this), i * interval + timeout);
 			})(i, this.tableRows);
 		}
+		
+		return this;
+	}
+	
+	this.multiplication = function(timeout, interval)
+	{
+		var counter = -1;
+		
+		for (i=0; i<this.secondNumberLength; i++) {
+			var res = parseInt(this.secondNumber.charAt(this.secondNumberLength-1-i)) * parseInt(this.firstNumber);
+			res = res.toString();
+			resLength = res.length;
+			for (j=0; j<resLength; j++) {
+				
+				counter++;
+				
+				var resUnit = res.charAt(resLength-1-j);
+				var td = this.tableRows.eq(2+i).children('td').eq(this.tableWidth-1-j-i);
+				
+				(function(td, resUnit, counter) {
+					setTimeout(function(){
+						td.text(resUnit).hide().fadeIn("fast");
+					}, counter * interval + timeout);
+				})(td, resUnit, counter);
+			}
+		}
+		
+		this
+			.setLine(this.tableHeight-2, 0, this.tableWidth, interval*counter+timeout+interval) 
+			.setSign("+", this.tableHeight-2, 0, interval*counter+timeout+interval)
+			.addition(2, this.tableWidth - 1, this.tableWidth-2, this.secondNumberLength, false, interval*counter+timeout+interval*2, interval);
 		
 		return this;
 	}
