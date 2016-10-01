@@ -16,7 +16,7 @@ function Calculation(firstInputValue, secondInputValue)
 	
 	this.timeout = 0;
 	
-	this.multiplicationTableWidth = function(margin = 0) 
+	this.multiplicationTableWidth = function(margin) 
 	{
 		var res = new Array();
 		
