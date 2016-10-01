@@ -30,11 +30,11 @@ function Calculation(firstInputValue, secondInputValue)
 	this.divisionTableHeight = function() 
 	{
 		var res = parseInt(this.firstNumber) / parseInt(this.secondNumber);
-		res = Math.floor(res);
 		res = res.toString().length*2+2;
 		
 		return res;
 	}
+	
 	
 	this.maxNumberLength = function() 
 	{

@@ -90,7 +90,9 @@ function division() {
 	;
 	if (isValid === true) {
 		var calculation = new Calculation(firstInputValue, secondInputValue);
-
+		calculation
+			.createTable(calculation.divisionTableHeight(), calculation.firstNumberLength + calculation.secondNumberLength + 1, false)
+			;
 	}
 }
 
