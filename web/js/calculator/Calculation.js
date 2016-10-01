@@ -121,7 +121,7 @@ function Calculation(firstInputValue, secondInputValue)
 			var timeout = this.timeout;
 			
 			(function(i, tableRows, timeout) {
-				setTimeout($.proxy(function(){
+				setTimeout(function(){
 					var tdIndex = y - i;
 					var td = new Array();
 					var res = 0;
@@ -153,7 +153,7 @@ function Calculation(firstInputValue, secondInputValue)
 						resTens = 0;
 					}
 		
-				}, this), timeout);
+				}, timeout);
 			})(i, this.tableRows, timeout);
 			this.timeout += interval;
 		}
@@ -173,7 +173,7 @@ function Calculation(firstInputValue, secondInputValue)
 			var timeout = this.timeout;
 			
 			(function(i, tableRows, timeout) {
-				setTimeout($.proxy(function(){
+				setTimeout(function(){
 					var tdIndex = y - i;
 					var td = new Array();
 					for(j=0; j<3; j++) {
@@ -208,7 +208,7 @@ function Calculation(firstInputValue, secondInputValue)
 					}
 					tableRows.eq(x+2).children('td').eq(tdIndex).text(res).hide().fadeIn("fast");
 		
-				}, this), timeout);
+				}, timeout);
 			})(i, this.tableRows, timeout);
 			this.timeout += interval;	
 		}
