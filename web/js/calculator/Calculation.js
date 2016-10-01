@@ -72,7 +72,7 @@ function Calculation(firstInputValue, secondInputValue)
 	{
 		var i = 0;
 		this.tableRows.eq(y).children('td').each(function(index) {
-			if (index >= x && index < x + length) {
+			if (index >= x && index <= x + length) {
 				$( this ).text(number.charAt(i));
 				$( this ).hide();
 				$( this ).fadeIn("fast");

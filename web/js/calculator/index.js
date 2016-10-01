@@ -92,7 +92,8 @@ function division() {
 		var calculation = new Calculation(firstInputValue, secondInputValue);
 		calculation
 			.createTable(calculation.divisionTableHeight(), calculation.firstNumberLength + calculation.secondNumberLength + 1, false)
-			.setNumber(calculation.firstNumber, 0, 1, calculation.secondNumberLength)
+			.setNumber(calculation.firstNumber, 0, 1, calculation.firstNumberLength)
+			.setNumber(calculation.secondNumber, calculation.tableWidth - calculation.secondNumberLength, 1, calculation.secondNumberLength)
 			;
 	}
 }
