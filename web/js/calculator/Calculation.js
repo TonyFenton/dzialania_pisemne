@@ -16,7 +16,7 @@ function Calculation(firstInputValue, secondInputValue)
 	
 	this.timeout = 0;
 	
-	this.multiplicationTableWidth = function(margin = 0) 
+	this.multiplicationTableWidth = function(margin) 
 	{
 		var res = new Array();
 		
@@ -25,6 +25,15 @@ function Calculation(firstInputValue, secondInputValue)
 			res[i] = res[i].toString().length + i + margin;
 		}
 		return Math.max.apply(Math, res);
+	}
+	
+	this.divisionTableHeight = function() 
+	{
+		var res = parseInt(this.firstNumber) / parseInt(this.secondNumber);
+		res = Math.floor(res);
+		res = res.toString().length*2+2;
+		
+		return res;
 	}
 	
 	this.maxNumberLength = function() 

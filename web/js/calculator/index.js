@@ -90,6 +90,7 @@ function division() {
 	;
 	if (isValid === true) {
 		var calculation = new Calculation(firstInputValue, secondInputValue);
+
 	}
 }
 
