@@ -77,6 +77,9 @@ function multiplication() {
 	}
 }
 
+function division() {
+}
+
 var interval = 750;
 
 var inputs = $('#calculator input');
@@ -90,3 +93,4 @@ var result = $('#result');
 $('#calculator #add').on("click", addition);
 $('#calculator #subtract').on("click", subtraction);
 $('#calculator #multiply').on("click", multiplication);
+$('#calculator #divide').on("click", division);
