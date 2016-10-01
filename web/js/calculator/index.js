@@ -78,6 +78,19 @@ function multiplication() {
 }
 
 function division() {
+	var firstInputValue = inputValue(firstInput);
+	var secondInputValue = inputValue(secondInput);
+	
+	var validation = new Validation();
+	var isValid = validation
+		.validateInput(firstInputValue, "Pierwsze Pole")
+		.validateInput(secondInputValue, "Drugie Pole")
+		.validateGreaterOrEqual(firstInputValue, secondInputValue)
+		.isValid()
+	;
+	if (isValid === true) {
+		var calculation = new Calculation(firstInputValue, secondInputValue);
+	}
 }
 
 var interval = 750;
