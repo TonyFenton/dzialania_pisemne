@@ -18,8 +18,8 @@ function addition() {
 		var calculation = new Calculation(firstInputValue, secondInputValue);
 		calculation
 			.createTable(4, calculation.maxNumberLength()+2, 0)
-			.setNumber(calculation.firstNumber, calculation.tableWidth - calculation.firstNumberLength, 1, calculation.firstNumberLength)
-			.setNumber(calculation.secondNumber, calculation.tableWidth - calculation.secondNumberLength, 2, calculation.secondNumberLength)
+			.setNumber(calculation.firstNumber, calculation.tableWidth - calculation.firstNumberLength, 1, calculation.firstNumberLength, calculation.timeout)
+			.setNumber(calculation.secondNumber, calculation.tableWidth - calculation.secondNumberLength, 2, calculation.secondNumberLength, calculation.timeout+interval)
 			.setSign("+", 2, 0, calculation.timeout+interval)
 			.setLine(0, 2, calculation.tableWidth, calculation.timeout, "bottom")
 			.addition(calculation.tableWidth - 1, 1, calculation.maxNumberLength(), 2, true, calculation.timeout+interval, interval)
@@ -43,8 +43,8 @@ function subtraction() {
 		var calculation = new Calculation(firstInputValue, secondInputValue);
 		calculation
 			.createTable(4, calculation.maxNumberLength()+2, 0)
-			.setNumber(calculation.firstNumber, calculation.tableWidth - calculation.firstNumberLength, 1, calculation.firstNumberLength)
-			.setNumber(calculation.secondNumber, calculation.tableWidth - calculation.secondNumberLength, 2, calculation.secondNumberLength)
+			.setNumber(calculation.firstNumber, calculation.tableWidth - calculation.firstNumberLength, 1, calculation.firstNumberLength, calculation.timeout)
+			.setNumber(calculation.secondNumber, calculation.tableWidth - calculation.secondNumberLength, 2, calculation.secondNumberLength, calculation.timeout+interval)
 			.setSign("&#8722;", 2, 0, calculation.timeout+interval)
 			.setLine(0, 2, calculation.tableWidth, calculation.timeout, "bottom")
 			.subtraction(calculation.tableWidth - 1, 1, calculation.maxNumberLength(), true, calculation.timeout+interval, interval)
@@ -68,8 +68,8 @@ function multiplication() {
 		var calculation = new Calculation(firstInputValue, secondInputValue);
 		calculation
 			.createTable(2+calculation.secondNumberLength+1, calculation.multiplicationTableWidth(2), false)
-			.setNumber(calculation.firstNumber, calculation.tableWidth - calculation.firstNumberLength, 0, calculation.firstNumberLength)
-			.setNumber(calculation.secondNumber, calculation.tableWidth - calculation.secondNumberLength, 1, calculation.secondNumberLength)
+			.setNumber(calculation.firstNumber, calculation.tableWidth - calculation.firstNumberLength, 0, calculation.firstNumberLength, calculation.timeout)
+			.setNumber(calculation.secondNumber, calculation.tableWidth - calculation.secondNumberLength, 1, calculation.secondNumberLength, calculation.timeout+interval)
 			.setSign("&#215;", 1, calculation.tableWidth - calculation.maxNumberLength()-2, calculation.timeout+interval)
 			.setLine(calculation.tableWidth - calculation.maxNumberLength()-2, 1, calculation.maxNumberLength()+2, calculation.timeout, "bottom")
 			.multiplication(calculation.timeout+interval, interval)
@@ -91,11 +91,38 @@ function division() {
 	if (isValid === true) {
 		var calculation = new Calculation(firstInputValue, secondInputValue);
 		calculation
-			.createTable(calculation.divisionTableHeight(), calculation.firstNumberLength + calculation.secondNumberLength + 1, false)
-			.setNumber(calculation.firstNumber, 0, 1, calculation.firstNumberLength)
-			.setNumber(calculation.secondNumber, calculation.tableWidth - calculation.secondNumberLength, 1, calculation.secondNumberLength)
-			.setSign(':', 1, calculation.firstNumberLength, calculation.timeout + interval)
-			.setLine(0, 0, calculation.firstNumberLength, calculation.timeout, "top")
+			.createTable(
+				calculation.divisionTableHeight(),
+				calculation.firstNumberLength + calculation.secondNumberLength + 1,
+				false
+			)
+			.setNumber(
+				calculation.firstNumber,
+				0,
+				1,
+				calculation.firstNumberLength,
+				calculation.timeout
+			)
+			.setSign(
+				':',
+				1,
+				calculation.firstNumberLength,
+				calculation.timeout + interval
+			)
+			.setLine(
+				0, 
+				0, 
+				calculation.firstNumberLength,
+				calculation.timeout,
+				"top"
+			)
+			.setNumber(
+				calculation.secondNumber,
+				calculation.tableWidth - calculation.secondNumberLength,
+				1,
+				calculation.secondNumberLength,
+				calculation.timeout+interval
+			)
 			;
 	}
 }

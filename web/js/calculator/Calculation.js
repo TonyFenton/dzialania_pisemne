@@ -69,17 +69,21 @@ function Calculation(firstInputValue, secondInputValue)
 		return this;
 	}
 	
-	this.setNumber = function(number, x, y, length)
+	this.setNumber = function(number, x, y, length, timeout)
 	{
-		var i = 0;
-		this.tableRows.eq(y).children('td').each(function(index) {
-			if (index >= x && index <= x + length) {
-				$( this ).text(number.charAt(i));
-				$( this ).hide();
-				$( this ).fadeIn("fast");
-				i++;
-			}
-		});
+		this.timeout = timeout;
+		
+		setTimeout($.proxy(function(){
+			var i = 0;
+			this.tableRows.eq(y).children('td').each(function(index) {
+				if (index >= x && index <= x + length) {
+					$( this ).text(number.charAt(i));
+					$( this ).hide();
+					$( this ).fadeIn("fast");
+					i++;
+				}
+			});
+		}, this), this.timeout);	
 		
 		return this;
 	}
