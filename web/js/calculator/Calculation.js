@@ -30,8 +30,8 @@ function Calculation(firstInputValue, secondInputValue)
 	this.divisionTableHeight = function() 
 	{
 		var res = parseInt(this.firstNumber) / parseInt(this.secondNumber);
+		res = Math.floor(res);
 		res = res.toString().length*2+2;
-		
 		return res;
 	}
 	
@@ -60,6 +60,7 @@ function Calculation(firstInputValue, secondInputValue)
 			}
 			table.appendChild(tr);
 		}
+		result.css("margin-top", "0px")
 		result.css("margin-bottom", "0px")
 		result.html(table);
 		this.tableRows = $('table tr');
@@ -83,7 +84,7 @@ function Calculation(firstInputValue, secondInputValue)
 		return this;
 	}
 	
-	this.setLine = function(x, y, length, timeout) 
+	this.setLine = function(x, y, length, timeout, positionMargin) 
 	{
 		this.timeout = timeout;
 		
@@ -97,8 +98,8 @@ function Calculation(firstInputValue, secondInputValue)
 				}
 			});
 			
-			var margin = parseInt(result.css("margin-bottom")) -1;
-			result.css("margin-bottom", margin+"px")
+			var margin = parseInt(result.css("margin-"+positionMargin)) -1;
+			result.css("margin-"+positionMargin, margin+"px")
 			
 		}, this), this.timeout);	
 			
@@ -250,9 +251,9 @@ function Calculation(firstInputValue, secondInputValue)
 		this.timeout -= interval;
 		
 		this
-			.setLine(0, this.tableHeight-2, this.tableWidth, this.timeout+interval) 
+			.setLine(0, this.tableHeight-2, this.tableWidth, this.timeout+interval, "bottom") 
 			.setSign("+", this.tableHeight-2, 0, this.timeout)
-			.addition(2, this.tableWidth - 1, this.tableWidth-2, this.secondNumberLength, false, this.timeout+interval, interval);
+			.addition(this.tableWidth - 1, 2, this.tableWidth-2, this.secondNumberLength, false, this.timeout+interval, interval);
 		
 		return this;
 	}
