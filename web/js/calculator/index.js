@@ -2,11 +2,19 @@
 	return input.val().trim();
 }
 function timeoutRange() {
-	var range = $('#range input');
+	var range = $('#range input')
 	var max = range.attr("max");
 	var rangeVal = range.val();
 	
 	interval = max - rangeVal;
+	
+	if (max == rangeVal) {
+		rangeVal = "Natychmiast";
+	} else {
+		rangeVal = rangeVal.substring(0, 3);
+	}
+	
+	$('#range label span').text(rangeVal);
 }
 
 function addition() {
@@ -157,19 +165,10 @@ var secondInput = inputs.eq(1);
 
 var result = $('#result');
 
-$('#calculator #add').on("click", function() {
-	timeoutRange(),
-	addition()
-});
-$('#calculator #subtract').on("click", function() {
-	timeoutRange(),
-	subtraction()
-});
-$('#calculator #multiply').on("click", function() {
-	timeoutRange(),
-	multiplication()
-});
-$('#calculator #divide').on("click", function() {
-	timeoutRange(),
-	division()
-});
+timeoutRange();
+$('#range input').on('change', timeoutRange);
+
+$('#calculator #add').on("click", addition);
+$('#calculator #subtract').on("click", subtraction);
+$('#calculator #multiply').on("click", multiplication);
+$('#calculator #divide').on("click", division);
