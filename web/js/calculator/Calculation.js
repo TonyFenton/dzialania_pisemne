@@ -76,7 +76,7 @@ function Calculation(firstInputValue, secondInputValue)
 		setTimeout($.proxy(function(){
 			var i = 0;
 			this.tableRows.eq(y).children('td').each(function(index) {
-				if (index >= x && index <= x + length) {
+				if (index >= x && index < x + length) {
 					$( this ).text(number.charAt(i));
 					$( this ).hide();
 					$( this ).fadeIn("fast");
@@ -180,7 +180,7 @@ function Calculation(firstInputValue, secondInputValue)
 		
 		var tens = 0;
 		
-		for(i=0; i<length; i++) {
+		for(var i=0; i<length; i++) {
 			
 			var timeout = this.timeout;
 			
@@ -225,7 +225,6 @@ function Calculation(firstInputValue, secondInputValue)
 			this.timeout += interval;	
 		}
 		this.timeout -= interval;
-		
 		return this;
 	}
 	
@@ -262,6 +261,107 @@ function Calculation(firstInputValue, secondInputValue)
 		return this;
 	}
 	
+	this.division = function(timeout, interval)
+	{
+		this.timeout = timeout;	
+		var tableRows = this.tableRows;
+		
+		var divisor = "";
+		var j = 0;
+		
+		var secondNumberInt = parseInt(this.secondNumber);
+		
+		for (i=0; i<this.firstNumberLength; i++) {
+			
+			divisor += this.firstNumber.charAt(i);
+			var res = parseInt(divisor) / secondNumberInt;
+			
+			if (res>=1) {
+				res = Math.floor(res); 
+				
+				var timeout = this.timeout;
+				
+				(function(i, res, tableRows, timeout) {
+					setTimeout(function(){
+						tableRows.eq(0).children('td').eq(i+1).text(res).hide().fadeIn("fast");
+					}, timeout);
+				})(i, res, tableRows, timeout);
+					
+				var mulRes = res * secondNumberInt;	
+				mulRes = mulRes.toString();
+				var mulResLength = mulRes.length;
+			
+				this.timeout += interval;
+				timeout = this.timeout;
+				
+				(function(j, i, mulResLength, mulRes, tableRows, timeout) {
+					setTimeout(function(){
+						for (k=0; k<mulResLength; k++) {
+							var mulResUnit = mulRes.charAt(k);
+							tableRows.eq(2+j*2).children('td').eq(i-mulResLength+2+k).text(mulResUnit).hide().fadeIn("fast");
+						}
+					}, timeout);
+				})(j, i, mulResLength, mulRes, tableRows, timeout);
+				
+				var divisorLength = divisor.toString().length;
+				this
+					.setSign(
+						"&#8722;",
+						2+j*2,
+						i-divisorLength+2-1,
+						this.timeout+interval
+					)
+					.setLine(
+						i-divisorLength+2,
+						2+j*2,
+						divisorLength,
+						this.timeout,
+						"bottom"
+					)
+					.subtraction(
+						1+i,
+						1+j*2,
+						divisorLength,
+						false,
+						this.timeout+interval,
+						interval
+					);
+					
+				divisor = divisor % secondNumberInt;
+				
+				j++;
+				
+			}else if (j > 0){
+				timeout = this.timeout;
+				
+				(function(i, tableRows, timeout) {
+					setTimeout(function(){
+						tableRows.eq(0).children('td').eq(i+1).text(0).hide().fadeIn("fast");
+					}, timeout);
+				})(i, tableRows, timeout);
+			}
+			
+			if (j > 0) {
+				if (i < this.firstNumberLength-1) {
+					var movedNumber = this.firstNumber.charAt(i+1);
+					
+					this.timeout += interval;
+					timeout = this.timeout;
+					
+					(function(movedNumber, j, i, tableRows, timeout) {
+						setTimeout(function(){
+								tableRows.eq(2+(j-1)*2+1).children('td').eq(i+2).text(movedNumber).hide().fadeIn("fast");
+														
+						}, timeout);
+					})(movedNumber, j, i, tableRows, timeout);
+				}
+				this.timeout += interval;
+			}
+		}
+		this.timeout -= interval;
+		return this;
+	}
+	
 	this.showSuccess = function(tr, timeout, interval) 
 	{
 		this.timeout = timeout;
@@ -272,6 +372,8 @@ function Calculation(firstInputValue, secondInputValue)
 		this.timeout += interval;
 		setTimeout($.proxy(function(){
 			this.tableRows.eq(tr).removeClass("success");
-		}, this), this.timeout);			
+		}, this), this.timeout);
+
+		return this;		
 	}
 }

@@ -93,12 +93,12 @@ function division() {
 		calculation
 			.createTable(
 				calculation.divisionTableHeight(),
-				calculation.firstNumberLength + calculation.secondNumberLength + 1,
+				calculation.firstNumberLength + calculation.secondNumberLength + 2,
 				false
 			)
 			.setNumber(
 				calculation.firstNumber,
-				0,
+				1,
 				1,
 				calculation.firstNumberLength,
 				calculation.timeout
@@ -106,11 +106,11 @@ function division() {
 			.setSign(
 				':',
 				1,
-				calculation.firstNumberLength,
+				calculation.firstNumberLength+1,
 				calculation.timeout + interval
 			)
 			.setLine(
-				0, 
+				1, 
 				0, 
 				calculation.firstNumberLength,
 				calculation.timeout,
@@ -123,7 +123,10 @@ function division() {
 				calculation.secondNumberLength,
 				calculation.timeout+interval
 			)
-			;
+			.division(
+				calculation.timeout+interval,
+				interval
+			);
 	}
 }
 

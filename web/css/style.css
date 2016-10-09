@@ -55,14 +55,12 @@ table {
 	margin-right: auto;
 	font-size: 18px;
 }
-table tr {
-	box-sizing: content-box;
-}
 
 table td {
 	width: 15px;
 	height: 28px;
 	text-align: center;
+	box-sizing: content-box;
 }
 
 .draft {
