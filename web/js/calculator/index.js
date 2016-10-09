@@ -126,7 +126,17 @@ function division() {
 			.division(
 				calculation.timeout+interval,
 				interval
-			);
+			)
+			.showSuccess(
+				0,
+				calculation.timeout+interval/2,
+				interval
+			)
+			.showSuccess(
+				calculation.tableHeight-1,
+				calculation.timeout-interval,
+				interval
+			);			
 	}
 }
 
