@@ -79,8 +79,8 @@ function Calculation(firstInputValue, secondInputValue)
 			this.tableRows.eq(y).children('td').each(function(index) {
 				if (index >= x && index < x + length) {
 					$( this ).text(number.charAt(i));
-					$( this ).hide();
-					$( this ).fadeIn("fast");
+					$( this );
+					$( this );
 					i++;
 				}
 			});
@@ -116,7 +116,7 @@ function Calculation(firstInputValue, secondInputValue)
 		this.timeout = timeout;
 		
 		setTimeout($.proxy(function(){
-			this.tableRows.eq(tr).children('td').eq(td).html(sign).hide().fadeIn("fast");
+			this.tableRows.eq(tr).children('td').eq(td).html(sign);
 			
 		}, this), this.timeout);
 		
@@ -153,16 +153,16 @@ function Calculation(firstInputValue, secondInputValue)
 						resUnits = res.charAt(1);
 						resTens = res.charAt(0);
 		
-						tableRows.eq(y+amount).children('td').eq(tdIndex).text(resUnits).hide().fadeIn("fast");
+						tableRows.eq(y+amount).children('td').eq(tdIndex).text(resUnits);
 
 						if( tdIndex == x + 1 - length) {
-								tableRows.eq(y+amount).children('td').eq(tdIndex-1).text(resTens).hide().fadeIn("fast");
+								tableRows.eq(y+amount).children('td').eq(tdIndex-1).text(resTens);
 						} else if (draft) {
-							tableRows.eq(y-1).children('td').eq(tdIndex-1).text(resTens).hide().fadeIn("fast");
+							tableRows.eq(y-1).children('td').eq(tdIndex-1).text(resTens);
 						}
 
 					} else {
-						tableRows.eq(y+amount).children('td').eq(tdIndex).text(res).hide().fadeIn("fast");
+						tableRows.eq(y+amount).children('td').eq(tdIndex).text(res);
 						resTens = 0;
 					}
 		
@@ -208,18 +208,18 @@ function Calculation(firstInputValue, secondInputValue)
 							
 							if (tensDraft == '') {
 									while (tableRows.eq(y).children('td').eq(tdIndex-1-k).text() == 0) {
-										tableRows.eq(y-1).children('td').eq(tdIndex-1-k).text(9).hide().fadeIn("fast");
+										tableRows.eq(y-1).children('td').eq(tdIndex-1-k).text(9);
 										k++
 									}
 								
-								tableRows.eq(y-1).children('td').eq(tdIndex-1-k).text(tens).hide().fadeIn("fast");
+								tableRows.eq(y-1).children('td').eq(tdIndex-1-k).text(tens);
 							}
 						}
 
 					} else {
 						tens = 0;
 					}
-					tableRows.eq(y+2).children('td').eq(tdIndex).text(res).hide().fadeIn("fast");
+					tableRows.eq(y+2).children('td').eq(tdIndex).text(res);
 		
 				}, timeout);
 			})(i, this.tableRows, timeout);
@@ -246,7 +246,7 @@ function Calculation(firstInputValue, secondInputValue)
 				
 				(function(td, resUnit, timeout) {
 					setTimeout(function(){
-						td.text(resUnit).hide().fadeIn("fast");
+						td.text(resUnit);
 					}, timeout);
 				})(td, resUnit, timeout);
 				this.timeout += interval;
@@ -284,7 +284,7 @@ function Calculation(firstInputValue, secondInputValue)
 				
 				(function(i, res, tableRows, timeout) {
 					setTimeout(function(){
-						tableRows.eq(0).children('td').eq(i+1).text(res).hide().fadeIn("fast");
+						tableRows.eq(0).children('td').eq(i+1).text(res);
 					}, timeout);
 				})(i, res, tableRows, timeout);
 					
@@ -299,7 +299,7 @@ function Calculation(firstInputValue, secondInputValue)
 					setTimeout(function(){
 						for (k=0; k<mulResLength; k++) {
 							var mulResUnit = mulRes.charAt(k);
-							tableRows.eq(2+j*2).children('td').eq(i-mulResLength+2+k).text(mulResUnit).hide().fadeIn("fast");
+							tableRows.eq(2+j*2).children('td').eq(i-mulResLength+2+k).text(mulResUnit);
 						}
 					}, timeout);
 				})(j, i, mulResLength, mulRes, tableRows, timeout);
@@ -337,7 +337,7 @@ function Calculation(firstInputValue, secondInputValue)
 				
 				(function(i, tableRows, timeout) {
 					setTimeout(function(){
-						tableRows.eq(0).children('td').eq(i+1).text(0).hide().fadeIn("fast");
+						tableRows.eq(0).children('td').eq(i+1).text(0);
 					}, timeout);
 				})(i, tableRows, timeout);
 			}
@@ -351,7 +351,7 @@ function Calculation(firstInputValue, secondInputValue)
 					
 					(function(movedNumber, j, i, tableRows, timeout) {
 						setTimeout(function(){
-								tableRows.eq(2+(j-1)*2+1).children('td').eq(i+2).text(movedNumber).hide().fadeIn("fast");
+								tableRows.eq(2+(j-1)*2+1).children('td').eq(i+2).text(movedNumber);
 														
 						}, timeout);
 					})(movedNumber, j, i, tableRows, timeout);
