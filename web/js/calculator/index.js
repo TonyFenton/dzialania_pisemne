@@ -140,7 +140,7 @@ function division() {
 	}
 }
 
-var interval = 750;
+var interval = 0;
 
 var inputs = $('#calculator input');
 

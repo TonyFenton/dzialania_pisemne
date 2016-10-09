@@ -31,7 +31,8 @@ function Calculation(firstInputValue, secondInputValue)
 	{
 		var res = parseInt(this.firstNumber) / parseInt(this.secondNumber);
 		res = Math.floor(res);
-		res = res.toString().length*2+2;
+		res = res.toString().replace(/0/g, '');
+		res = res.length*2+2;
 		return res;
 	}
 	
