@@ -1,5 +1,10 @@
 {% extends 'default/layout.html.twig' %}
 
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{asset('fontello-6c49bd00/css/fontello.css')}}" rel="stylesheet" />
+{% endblock %}
+
 {% block javascripts %}
 	{{ parent() }}
 	<script src="{{asset('js/calculator/Validation.js')}}"></script>
@@ -30,11 +35,12 @@
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
 							<div class="form_buttons">
-								<button type="button" class="btn btn-success" id="add"><span class="glyphicon glyphicon-plus"></span></button>
-								<button type="button" class="btn btn-danger" id="subtract"><span class="glyphicon glyphicon-minus"></span></button>
+								<button type="button" class="btn btn-success" id="add"><span class="demo-icon icon-plus-1"></span></button>
+								<button type="button" class="btn btn-danger" id="subtract"><span class="demo-icon icon-minus-1"></span></button>
 							</div>
 							<div class="form_buttons">
-								<button type="button" class="btn btn-primary" id="multiply"><span class="glyphicon glyphicon-remove"></span></button>
+								<button type="button" class="btn btn-primary" id="multiply"><span class="demo-icon icon-cancel"></span></button>
+								<button type="button" class="btn btn-warning" id="divide"><span class="demo-icon icon-divide"></span></button>
 							</div>
 						</div>
 					</div>

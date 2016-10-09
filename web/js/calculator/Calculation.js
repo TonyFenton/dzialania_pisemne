@@ -27,6 +27,15 @@ function Calculation(firstInputValue, secondInputValue)
 		return Math.max.apply(Math, res);
 	}
 	
+	this.divisionTableHeight = function() 
+	{
+		var res = parseInt(this.firstNumber) / parseInt(this.secondNumber);
+		res = Math.floor(res);
+		res = res.toString().replace(/0/g, '');
+		res = res.length*2+2;
+		return res;
+	}
+	
 	this.maxNumberLength = function() 
 	{
 		return Math.max(this.firstNumberLength, this.secondNumberLength);
@@ -52,6 +61,7 @@ function Calculation(firstInputValue, secondInputValue)
 			}
 			table.appendChild(tr);
 		}
+		result.css("margin-top", "0px")
 		result.css("margin-bottom", "0px")
 		result.html(table);
 		this.tableRows = $('table tr');
@@ -60,38 +70,41 @@ function Calculation(firstInputValue, secondInputValue)
 		return this;
 	}
 	
-	this.setNumber = function(number, x, y)
-	{
-		var i = 0;
-		this.tableRows.eq(x).children('td').each(function(index) {
-			
-			if (index >= y) {
-				$( this ).text(number.charAt(i));
-				$( this ).hide();
-				$( this ).fadeIn("fast");
-				i++;
-			}
-		});
-		
-		return this;
-	}
-	
-	this.setLine = function(x, y, length, timeout) 
+	this.setNumber = function(number, x, y, length, timeout)
 	{
 		this.timeout = timeout;
 		
 		setTimeout($.proxy(function(){
 			var i = 0;
-			this.tableRows.eq(x).children('td').each(function(index) {
+			this.tableRows.eq(y).children('td').each(function(index) {
+				if (index >= x && index < x + length) {
+					$( this ).text(number.charAt(i));
+					$( this ).hide();
+					$( this ).fadeIn("fast");
+					i++;
+				}
+			});
+		}, this), this.timeout);	
+		
+		return this;
+	}
+	
+	this.setLine = function(x, y, length, timeout, positionMargin) 
+	{
+		this.timeout = timeout;
+		
+		setTimeout($.proxy(function(){
+			var i = 0;
+			this.tableRows.eq(y).children('td').each(function(index) {
 				
-				if (index >= y && index < (y + length)) {
+				if (index >= x && index < (x + length)) {
 					$( this ).addClass("border_bottom");
 					i++;
 				}
 			});
 			
-			var margin = parseInt(result.css("margin-bottom")) -1;
-			result.css("margin-bottom", margin+"px")
+			var margin = parseInt(result.css("margin-"+positionMargin)) -1;
+			result.css("margin-"+positionMargin, margin+"px")
 			
 		}, this), this.timeout);	
 			
@@ -122,11 +135,11 @@ function Calculation(firstInputValue, secondInputValue)
 			
 			(function(i, tableRows, timeout) {
 				setTimeout(function(){
-					var tdIndex = y - i;
+					var tdIndex = x - i;
 					var td = new Array();
 					var res = 0;
 					for(j=0; j<amount; j++) {
-						td[j] = tableRows.eq(j+x).children('td').eq(tdIndex).text();
+						td[j] = tableRows.eq(j+y).children('td').eq(tdIndex).text();
 						if(td[j] == '') {
 							td[j] = 0;
 						}
@@ -140,16 +153,16 @@ function Calculation(firstInputValue, secondInputValue)
 						resUnits = res.charAt(1);
 						resTens = res.charAt(0);
 		
-						tableRows.eq(x+amount).children('td').eq(tdIndex).text(resUnits).hide().fadeIn("fast");
+						tableRows.eq(y+amount).children('td').eq(tdIndex).text(resUnits).hide().fadeIn("fast");
 
-						if( tdIndex == y + 1 - length) {
-								tableRows.eq(x+amount).children('td').eq(tdIndex-1).text(resTens).hide().fadeIn("fast");
+						if( tdIndex == x + 1 - length) {
+								tableRows.eq(y+amount).children('td').eq(tdIndex-1).text(resTens).hide().fadeIn("fast");
 						} else if (draft) {
-							tableRows.eq(x-1).children('td').eq(tdIndex-1).text(resTens).hide().fadeIn("fast");
+							tableRows.eq(y-1).children('td').eq(tdIndex-1).text(resTens).hide().fadeIn("fast");
 						}
 
 					} else {
-						tableRows.eq(x+amount).children('td').eq(tdIndex).text(res).hide().fadeIn("fast");
+						tableRows.eq(y+amount).children('td').eq(tdIndex).text(res).hide().fadeIn("fast");
 						resTens = 0;
 					}
 		
@@ -168,16 +181,16 @@ function Calculation(firstInputValue, secondInputValue)
 		
 		var tens = 0;
 		
-		for(i=0; i<length; i++) {
+		for(var i=0; i<length; i++) {
 			
 			var timeout = this.timeout;
 			
 			(function(i, tableRows, timeout) {
 				setTimeout(function(){
-					var tdIndex = y - i;
+					var tdIndex = x - i;
 					var td = new Array();
 					for(j=0; j<3; j++) {
-						td[j] = tableRows.eq(j+x).children('td').eq(tdIndex).text();
+						td[j] = tableRows.eq(j+y).children('td').eq(tdIndex).text();
 						if(td[j] == '') {
 							td[j] = 0;
 						}
@@ -191,29 +204,28 @@ function Calculation(firstInputValue, secondInputValue)
 
 						if (draft) {
 							var k = 0;
-							var tensDraft = tableRows.eq(x-1).children('td').eq(tdIndex-1).text();
+							var tensDraft = tableRows.eq(y-1).children('td').eq(tdIndex-1).text();
 							
 							if (tensDraft == '') {
-									while (tableRows.eq(x).children('td').eq(tdIndex-1-k).text() == 0) {
-										tableRows.eq(x-1).children('td').eq(tdIndex-1-k).text(9).hide().fadeIn("fast");
+									while (tableRows.eq(y).children('td').eq(tdIndex-1-k).text() == 0) {
+										tableRows.eq(y-1).children('td').eq(tdIndex-1-k).text(9).hide().fadeIn("fast");
 										k++
 									}
 								
-								tableRows.eq(x-1).children('td').eq(tdIndex-1-k).text(tens).hide().fadeIn("fast");
+								tableRows.eq(y-1).children('td').eq(tdIndex-1-k).text(tens).hide().fadeIn("fast");
 							}
 						}
 
 					} else {
 						tens = 0;
 					}
-					tableRows.eq(x+2).children('td').eq(tdIndex).text(res).hide().fadeIn("fast");
+					tableRows.eq(y+2).children('td').eq(tdIndex).text(res).hide().fadeIn("fast");
 		
 				}, timeout);
 			})(i, this.tableRows, timeout);
 			this.timeout += interval;	
 		}
 		this.timeout -= interval;
-		
 		return this;
 	}
 	
@@ -243,10 +255,111 @@ function Calculation(firstInputValue, secondInputValue)
 		this.timeout -= interval;
 		
 		this
-			.setLine(this.tableHeight-2, 0, this.tableWidth, this.timeout+interval) 
+			.setLine(0, this.tableHeight-2, this.tableWidth, this.timeout+interval, "bottom") 
 			.setSign("+", this.tableHeight-2, 0, this.timeout)
-			.addition(2, this.tableWidth - 1, this.tableWidth-2, this.secondNumberLength, false, this.timeout+interval, interval);
+			.addition(this.tableWidth - 1, 2, this.tableWidth-2, this.secondNumberLength, false, this.timeout+interval, interval);
 		
+		return this;
+	}
+	
+	this.division = function(timeout, interval)
+	{
+		this.timeout = timeout;	
+		var tableRows = this.tableRows;
+		
+		var divisor = "";
+		var j = 0;
+		
+		var secondNumberInt = parseInt(this.secondNumber);
+		
+		for (i=0; i<this.firstNumberLength; i++) {
+			
+			divisor += this.firstNumber.charAt(i);
+			var res = parseInt(divisor) / secondNumberInt;
+			
+			if (res>=1) {
+				res = Math.floor(res); 
+				
+				var timeout = this.timeout;
+				
+				(function(i, res, tableRows, timeout) {
+					setTimeout(function(){
+						tableRows.eq(0).children('td').eq(i+1).text(res).hide().fadeIn("fast");
+					}, timeout);
+				})(i, res, tableRows, timeout);
+					
+				var mulRes = res * secondNumberInt;	
+				mulRes = mulRes.toString();
+				var mulResLength = mulRes.length;
+			
+				this.timeout += interval;
+				timeout = this.timeout;
+				
+				(function(j, i, mulResLength, mulRes, tableRows, timeout) {
+					setTimeout(function(){
+						for (k=0; k<mulResLength; k++) {
+							var mulResUnit = mulRes.charAt(k);
+							tableRows.eq(2+j*2).children('td').eq(i-mulResLength+2+k).text(mulResUnit).hide().fadeIn("fast");
+						}
+					}, timeout);
+				})(j, i, mulResLength, mulRes, tableRows, timeout);
+				
+				var divisorLength = divisor.toString().length;
+				this
+					.setSign(
+						"&#8722;",
+						2+j*2,
+						i-divisorLength+2-1,
+						this.timeout+interval
+					)
+					.setLine(
+						i-divisorLength+2,
+						2+j*2,
+						divisorLength,
+						this.timeout,
+						"bottom"
+					)
+					.subtraction(
+						1+i,
+						1+j*2,
+						divisorLength,
+						false,
+						this.timeout+interval,
+						interval
+					);
+					
+				divisor = divisor % secondNumberInt;
+				
+				j++;
+				
+			}else if (j > 0){
+				timeout = this.timeout;
+				
+				(function(i, tableRows, timeout) {
+					setTimeout(function(){
+						tableRows.eq(0).children('td').eq(i+1).text(0).hide().fadeIn("fast");
+					}, timeout);
+				})(i, tableRows, timeout);
+			}
+			
+			if (j > 0) {
+				if (i < this.firstNumberLength-1) {
+					var movedNumber = this.firstNumber.charAt(i+1);
+					
+					this.timeout += interval;
+					timeout = this.timeout;
+					
+					(function(movedNumber, j, i, tableRows, timeout) {
+						setTimeout(function(){
+								tableRows.eq(2+(j-1)*2+1).children('td').eq(i+2).text(movedNumber).hide().fadeIn("fast");
+														
+						}, timeout);
+					})(movedNumber, j, i, tableRows, timeout);
+				}
+				this.timeout += interval;
+			}
+		}
+		this.timeout -= interval;
 		return this;
 	}
 	
@@ -260,6 +373,8 @@ function Calculation(firstInputValue, secondInputValue)
 		this.timeout += interval;
 		setTimeout($.proxy(function(){
 			this.tableRows.eq(tr).removeClass("success");
-		}, this), this.timeout);			
+		}, this), this.timeout);
+
+		return this;		
 	}
 }
