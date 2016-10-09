@@ -129,6 +129,21 @@ table td {
 	width: 48%;
 }
 
+#range {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+#range label {
+	font-weight: 500;
+	font-size: 16px;
+}
+#range div span:nth-child(1) {
+	float: left;
+}
+#range div span:nth-child(2) {
+	float: right;
+}
+
 @media (min-width: 768px) {
 		
 		#navbar {
