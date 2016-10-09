@@ -11,7 +11,7 @@ function timeoutRange() {
 	if (max == rangeVal) {
 		rangeVal = "Natychmiast";
 	} else {
-		rangeVal = rangeVal.substring(0, 3);
+		rangeVal = Math.ceil(rangeVal / 10) 
 	}
 	
 	$('#range label span').text(rangeVal);
