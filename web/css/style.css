@@ -75,6 +75,7 @@ table td {
 }
 
 .jumbotron {
+	text-align: justify;
 	padding-bottom: 20px;
 	padding-top: 0px;
 	border-radius: 0px;
@@ -137,19 +138,19 @@ table td {
 	font-weight: 500;
 	font-size: 16px;
 }
+#range label span{
+	font-family: auto;
+}
 #range div span:nth-child(1) {
 	float: left;
 }
 #range div span:nth-child(2) {
 	float: right;
 }
-
 @media (min-width: 768px) {
-		
 		#navbar {
 			margin-top: 60px;
 		}
-		
 		.jumbotron {
 			border-radius: 6px;
 			margin-bottom: 100px;
@@ -160,5 +161,15 @@ table td {
 			padding-left: 60px;
 			padding-right: 60px;
 		}
+}
+
+
+@media (max-width: 992px) {
+	nav .container {
+		width: auto;
+	}
+	
+	div#logo {
+		padding-right: 0px;
 	}
 }
