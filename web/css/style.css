@@ -2,7 +2,7 @@ body {
 	/* Background pattern from subtlepatterns.com */
 	background-image: url("../img/green_cup.png");
 	color: #333;
-	font-family: 'Slabo 27px', serif;
+	font-family: 'Maitree', serif;
 }
 
 #logo img {
@@ -137,9 +137,6 @@ table td {
 #range label {
 	font-weight: 500;
 	font-size: 16px;
-}
-#range label span{
-	font-family: auto;
 }
 #range div span:nth-child(1) {
 	float: left;
